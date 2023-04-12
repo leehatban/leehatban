@@ -1,27 +1,28 @@
-// 계산기 입력값
-let inputVal = '';
+// 계산기 결과창 가져오기
+let result = document.getElementById('result');
 
-// 입력값에 숫자 추가
-function inputNum(num) {
-  inputVal += num;
-  document.getElementById('result').value = inputVal;
+// 입력된 값을 결과창에 추가하는 함수
+function insertValue(value) {
+  result.value += value;
 }
 
-// 입력값에 연산자 추가
-function inputOperator(operator) {
-  inputVal += operator;
-  document.getElementById('result').value = inputVal;
+// 결과창 초기화 함수
+function clearResult() {
+  result.value = '';
 }
 
-// 입력값 초기화
-function clearInput() {
-  inputVal = '';
-  document.getElementById('result').value = inputVal;
+// 입력된 값의 마지막 문자를 삭제하는 함수
+function backspace() {
+  result.value = result.value.slice(0, -1);
 }
 
-// 계산 결과 반환
+// 계산을 수행하는 함수
 function calculate() {
-  let result = eval(inputVal);
-  document.getElementById('result').value = result;
-  inputVal = '';
+  try {
+    // 입력된 수식 계산
+    result.value = eval(result.value);
+  } catch (error) {
+    // 계산 중 에러 발생 시 에러 메시지 출력
+    result.value = 'Error';
+  }
 }
