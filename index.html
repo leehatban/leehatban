@@ -1,104 +1,72 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>예쁜 계산기</title>
-    <style>
-      /* CSS 코드 */
-      .calculator {
-        background-color: #f2f2f2;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 240px;
-        margin: 0 auto;
-        padding: 20px;
-        text-align: center;
-      }
 
-      input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        font-size: 24px;
-        text-align: right;
-        border-radius: 5px;
-        border: none;
-        background-color: #fff;
-      }
+<html lang="en">
 
-      .buttons {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
+<head>
 
-      button {
-        background-color: #fff;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        padding: 10px;
-        font-size: 20px;
-        width: 48%;
-        margin-bottom: 10px;
-      }
+<meta charset="UTF-8">
 
-      button.number {
-        background-color: #f2f2f2;
-      }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      button.operator {
-        background-color: #f9a825;
-        color: #fff;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="calculator">
-      <input type="text" id="result" disabled>
-      <div class="buttons">
-        <button class="number" onclick="inputNum(7)">7</button>
-        <button class="number" onclick="inputNum(8)">8</button>
-        <button class="number" onclick="inputNum(9)">9</button>
-        <button class="operator" onclick="inputOperator('+')">+</button>
-        <button class="number" onclick="inputNum(4)">4</button>
-        <button class="number" onclick="inputNum(5)">5</button>
-        <button class="number" onclick="inputNum(6)">6</button>
-        <button class="operator" onclick="inputOperator('-')">-</button>
-        <button class="number" onclick="inputNum(1)">1</button>
-        <button class="number" onclick="inputNum(2)">2</button>
-        <button class="number" onclick="inputNum(3)">3</button>
-        <button class="operator" onclick="inputOperator('*')">*</button>
-        <button class="number" onclick="inputNum(0)">0</button>
-        <button class="operator" onclick="clearInput()">C</button>
-        <button class="operator" onclick="inputOperator('/')">/</button>
-        <button class="operator" onclick="calculate()">=</button>
-      </div>
-    </div>
-    
-    <script>
-      // JavaScript 코드
-      let inputVal = '';
+<link rel="stylesheet" href="calculator.css">
 
-      function inputNum(num) {
-        inputVal += num;
-        document.getElementById('result').value = inputVal;
-      }
+<title>Beautiful Calculator</title>
 
-      function inputOperator(operator) {
-        inputVal += operator;
-        document.getElementById('result').value = inputVal;
-      }
+</head>
 
-      function clearInput() {
-        inputVal = '';
-        document.getElementById('result').value = inputVal;
-      }
+<body>
 
-      function calculate() {
-        let result = eval(inputVal);
-        document.getElementById('result').value = result;
-        inputVal = '';
-      }
-    </script>
-  </body>
+<div class="calculator">
+
+<input class="calculator-display" type="text" readonly>
+
+<div class="calculator-buttons">
+
+<button data-clear>AC</button>
+
+<button data-number>7</button>
+
+<button data-number>8</button>
+
+<button data-number>9</button>
+
+<button data-operator data-operator-type="divide">/</button>
+
+<button data-number>4</button>
+
+<button data-number>5</button>
+
+<button data-number>6</button>
+
+<button data-operator data-operator-type="multiply">*</button>
+
+<button data-number>1</button>
+
+<button data-number>2</button>
+
+<button data-number>3</button>
+
+<button data-operator data-operator-type="subtract">-</button>
+
+<button data-number>0</button>
+
+<button data-number>.</button>
+
+<button data-equals>=</button>
+
+<button data-operator data-operator-type="add">+</button>
+
+</div>
+
+</div>
+
+<script src="calculator.js"></script>
+
+</body>
+
 </html>
+
+ 
+
+ 
+
