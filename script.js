@@ -1,28 +1,133 @@
-// 계산기 결과창 가져오기
-let result = document.getElementById('result');
+const display = document.querySelector('.calculator-display');
 
-// 입력된 값을 결과창에 추가하는 함수
-function insertValue(value) {
-  result.value += value;
+const numberButtons = document.querySelectorAll('[data-number]');
+
+const operatorButtons = document.querySelectorAll('[data-operator]');
+
+const clearButton = document.querySelector('[data-clear]');
+
+const equalsButton = document.querySelector('[data-equals]');
+
+ 
+
+let currentValue = '';
+
+let previousValue = '';
+
+let currentOperator = null;
+
+let shouldResetDisplay = false;
+
+ 
+
+numberButtons.forEach(button => {
+
+button.addEventListener('click', () => {
+
+if (shouldResetDisplay) {
+
+display.value = '';
+
+shouldResetDisplay = false;
+
 }
 
-// 결과창 초기화 함수
-function clearResult() {
-  result.value = '';
-}
+display.value += button.textContent;
 
-// 입력된 값의 마지막 문자를 삭제하는 함수
-function backspace() {
-  result.value = result.value.slice(0, -1);
-}
+});
 
-// 계산을 수행하는 함수
+});
+
+ 
+
+operatorButtons.forEach(button => {
+
+button.addEventListener('click', () => {
+
+if (currentOperator) calculate();
+
+previousValue = display.value;
+
+currentOperator = button.dataset.operatorType;
+
+shouldResetDisplay = true;
+
+});
+
+});
+
+ 
+
+equalsButton.addEventListener('click', () => {
+
+if (!currentOperator) return;
+
+calculate();
+
+});
+
+ 
+
+clearButton.addEventListener('click', () => {
+
+currentValue = '';
+
+previousValue = '';
+
+currentOperator = null;
+
+display.value = '';
+
+});
+
+ 
+
 function calculate() {
-  try {
-    // 입력된 수식 계산
-    result.value = eval(result.value);
-  } catch (error) {
-    // 계산 중 에러 발생 시 에러 메시지 출력
-    result.value = 'Error';
-  }
+
+currentValue = display.value;
+
+let result;
+
+ 
+
+switch (currentOperator) {
+
+case 'add':
+
+result = parseFloat(previousValue) + parseFloat(currentValue);
+
+break;
+
+case 'subtract':
+
+result = parseFloat(previousValue) - parseFloat(currentValue);
+
+break;
+
+case 'multiply':
+
+result = parseFloat(previousValue) * parseFloat(currentValue);
+
+break;
+
+case 'divide':
+
+result = parseFloat(previousValue) / parseFloat(currentValue);
+
+break;
+
+default:
+
+return;
+
+}
+
+ 
+
+display.value = result;
+
+currentOperator = null;
+
+shouldResetDisplay = true;
+
 }
