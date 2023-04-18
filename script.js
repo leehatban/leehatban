@@ -1,133 +1,74 @@
-const display = document.querySelector('.calculator-display');
-
-const numberButtons = document.querySelectorAll('[data-number]');
-
-const operatorButtons = document.querySelectorAll('[data-operator]');
-
-const clearButton = document.querySelector('[data-clear]');
-
-const equalsButton = document.querySelector('[data-equals]');
-
- 
-
-let currentValue = '';
-
-let previousValue = '';
-
-let currentOperator = null;
-
+const display = document.querySelector('.display');
+const buttons = document.querySelectorAll('button');
+let currentValue = '0';
+let previousValue = null;
+let operator = null;
 let shouldResetDisplay = false;
 
- 
-
-numberButtons.forEach(button => {
-
-button.addEventListener('click', () => {
-
-if (shouldResetDisplay) {
-
-display.value = '';
-
-shouldResetDisplay = false;
-
+function resetCalculator() {
+  currentValue = '0';
+  previousValue = null;
+  operator = null;
+  shouldResetDisplay = false;
+  display.textContent = currentValue;
 }
 
-display.value += button.textContent;
-
-});
-
-});
-
- 
-
-operatorButtons.forEach(button => {
-
-button.addEventListener('click', () => {
-
-if (currentOperator) calculate();
-
-previousValue = display.value;
-
-currentOperator = button.dataset.operatorType;
-
-shouldResetDisplay = true;
-
-});
-
-});
-
- 
-
-equalsButton.addEventListener('click', () => {
-
-if (!currentOperator) return;
-
-calculate();
-
-});
-
- 
-
-clearButton.addEventListener('click', () => {
-
-currentValue = '';
-
-previousValue = '';
-
-currentOperator = null;
-
-display.value = '';
-
-});
-
- 
-
-function calculate() {
-
-currentValue = display.value;
-
-let result;
-
- 
-
-switch (currentOperator) {
-
-case 'add':
-
-result = parseFloat(previousValue) + parseFloat(currentValue);
-
-break;
-
-case 'subtract':
-
-result = parseFloat(previousValue) - parseFloat(currentValue);
-
-break;
-
-case 'multiply':
-
-result = parseFloat(previousValue) * parseFloat(currentValue);
-
-break;
-
-case 'divide':
-
-result = parseFloat(previousValue) / parseFloat(currentValue);
-
-break;
-
-default:
-
-return;
-
+function handleButtonClick(event) {
+  const { target } = event;
+  const buttonValue = target.textContent;
+  
+  if (shouldResetDisplay) {
+    currentValue = '0';
+    shouldResetDisplay = false;
+  }
+  
+  switch (buttonValue) {
+    case '+':
+    case '-':
+    case '*':
+    case '/':
+      operator = buttonValue;
+      previousValue = currentValue;
+      shouldResetDisplay = true;
+      break;
+    case '=':
+      const currentValueNum = parseFloat(currentValue);
+      const previousValueNum = parseFloat(previousValue);
+      switch (operator) {
+        case '+':
+          currentValue = previousValueNum + currentValueNum;
+          break;
+        case '-':
+          currentValue = previousValueNum - currentValueNum;
+          break;
+        case '*':
+          currentValue = previousValueNum * currentValueNum;
+          break;
+        case '/':
+          currentValue = previousValueNum / currentValueNum;
+          break;
+        default:
+          break;
+      }
+      operator = null;
+      previousValue = null;
+      shouldResetDisplay = true;
+      break;
+    case 'AC':
+      resetCalculator();
+      break;
+    default:
+      if (currentValue === '0') {
+        currentValue = buttonValue;
+      } else {
+        currentValue += buttonValue;
+      }
+      break;
+  }
+  
+  display.textContent = currentValue;
 }
 
- 
-
-display.value = result;
-
-currentOperator = null;
-
-shouldResetDisplay = true;
-
-}
+buttons.forEach(button => {
+  button.addEventListener('click', handleButtonClick);
+});
