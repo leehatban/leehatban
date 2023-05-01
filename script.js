@@ -131,3 +131,4 @@ currentOperator = null;
 shouldResetDisplay = true;
 
 }
+
