@@ -1,133 +1,67 @@
-const display = document.querySelector('.calculator-display');
+<!DOCTYPE html>
 
-const numberButtons = document.querySelectorAll('[data-number]');
+<html lang="en">
 
-const operatorButtons = document.querySelectorAll('[data-operator]');
+<head>
 
-const clearButton = document.querySelector('[data-clear]');
+<meta charset="UTF-8">
 
-const equalsButton = document.querySelector('[data-equals]');
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
- 
+<link rel="stylesheet" href="calculator.css">
 
-let currentValue = '';
+<title>Beautiful Calculator</title>
 
-let previousValue = '';
+</head>
 
-let currentOperator = null;
+<body>
 
-let shouldResetDisplay = false;
+<div class="calculator">
 
- 
+<input class="calculator-display" type="text" readonly>
 
-numberButtons.forEach(button => {
+<div class="calculator-buttons">
 
-button.addEventListener('click', () => {
+<button data-clear>AC</button>
 
-if (shouldResetDisplay) {
+<button data-number>7</button>
 
-display.value = '';
+<button data-number>8</button>
 
-shouldResetDisplay = false;
+<button data-number>9</button>
 
-}
+<button data-operator data-operator-type="divide">/</button>
 
-display.value += button.textContent;
+<button data-number>4</button>
 
-});
+<button data-number>5</button>
 
-});
+<button data-number>6</button>
 
- 
+<button data-operator data-operator-type="multiply">*</button>
 
-operatorButtons.forEach(button => {
+<button data-number>1</button>
 
-button.addEventListener('click', () => {
+<button data-number>2</button>
 
-if (currentOperator) calculate();
+<button data-number>3</button>
 
-previousValue = display.value;
+<button data-operator data-operator-type="subtract">-</button>
 
-currentOperator = button.dataset.operatorType;
+<button data-number>0</button>
 
-shouldResetDisplay = true;
+<button data-number>.</button>
 
-});
+<button data-equals>=</button>
 
-});
+<button data-operator data-operator-type="add">+</button>
 
- 
+</div>
 
-equalsButton.addEventListener('click', () => {
+</div>
 
-if (!currentOperator) return;
+<script src="calculator.js"></script>
 
-calculate();
+</body>
 
-});
-
- 
-
-clearButton.addEventListener('click', () => {
-
-currentValue = '';
-
-previousValue = '';
-
-currentOperator = null;
-
-display.value = '';
-
-});
-
- 
-
-function calculate() {
-
-currentValue = display.value;
-
-let result;
-
- 
-
-switch (currentOperator) {
-
-case 'add':
-
-result = parseFloat(previousValue) + parseFloat(currentValue);
-
-break;
-
-case 'subtract':
-
-result = parseFloat(previousValue) - parseFloat(currentValue);
-
-break;
-
-case 'multiply':
-
-result = parseFloat(previousValue) * parseFloat(currentValue);
-
-break;
-
-case 'divide':
-
-result = parseFloat(previousValue) / parseFloat(currentValue);
-
-break;
-
-default:
-
-return;
-
-}
-
- 
-
-display.value = result;
-
-currentOperator = null;
-
-shouldResetDisplay = true;
-
-}
+</html>
